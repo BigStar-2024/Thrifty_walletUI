@@ -58,12 +58,12 @@ const FundsAndTransferAreaMobile = () => {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab sx={{ fontSize: "14px" }} label="Funds" />
+          {/* <Tab sx={{ fontSize: "14px" }} label="Funds" /> */}
           <Tab sx={{ fontSize: "14px" }} label="Transfer History" />
         </Tabs>
       </Box>
       <Box>
-        <TabPanel value={tabValue} index={0}>
+        {/* <TabPanel value={tabValue} index={0}>
           <Box
             mt={-1}
             py={2}
@@ -107,8 +107,8 @@ const FundsAndTransferAreaMobile = () => {
               <TableAreaMobile />
             </Suspense>
           </Box>
-        </TabPanel>
-        <TabPanel value={tabValue} index={1}>
+        </TabPanel> */}
+        <TabPanel value={tabValue} index={0}>
           <Box>
             <Box mt={-1} py={2} px={1} bgcolor={theme.palette.background.paper}>
               <Input
