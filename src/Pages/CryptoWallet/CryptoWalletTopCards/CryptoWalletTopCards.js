@@ -25,6 +25,8 @@ import BuyCryptoCardImageLight from "../../../assets/buyCryptoCurrencyCardImgLig
 
 // Router
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Web3 } from 'web3';
 
 // Lazy Image component
 const LazyImageComponent = React.lazy(() =>
@@ -35,6 +37,28 @@ const CryptoWalletTopCards = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+  const [connectedAccount, setConnectedAccount] = useState('');
+
+
+  //-------------------------------Wallet Connection---------------//
+  const connectMetamask = async() => {
+    //check metamask is installed
+    if (window.ethereum) {
+      // instantiate Web3 with the injected provider
+      const web3 = new Web3(window.ethereum);
+
+      //request user to connect accounts (Metamask will prompt)
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+      //get the connected accounts
+      const accounts = await web3.eth.getAccounts();
+      
+      //show the first connected account in the react page
+      setConnectedAccount(accounts[0]);
+    } else {
+      alert('Please download metamask');
+    }
+  }
 
   return (
     <Box className={styles.mainBox}>
@@ -109,7 +133,7 @@ const CryptoWalletTopCards = () => {
                   color="secondary"
                   variant="body2"
                 >
-                  Buy Cryptocurrency from FIAT
+                  Crypto Wallet Connection
                 </Typography>
                 {theme.palette.mode === "dark" ? (
                   <Box mt={3} className={styles.buyCryptoButton}>
@@ -118,9 +142,11 @@ const CryptoWalletTopCards = () => {
                       borderRadius="4px"
                       bgcolor={theme.palette.background.paper}
                     >
+
                       <Button
                         fullWidth
-                        onClick={() => navigate("/wallets/top-up")}
+                        // onClick={() => navigate("/wallets/top-up")}
+                        onClick={async() => await connectMetamask()}
                         variant="text"
                         color="primary"
                         sx={{ py: 1.5 }}
@@ -134,7 +160,7 @@ const CryptoWalletTopCards = () => {
                             fontSize: { xs: "10px", md: "14px" },
                           }}
                         >
-                          Buy Crypto
+                          {connectedAccount!==''?"Disconnect":"Connect Metamask"}
                         </Typography>
                       </Button>
                     </Box>

@@ -35,7 +35,8 @@ if (window.matchMedia("(display-mode: standalone)").matches) {
 
 ReactDOM.render(
   <React.StrictMode>
-    {isFirstTime && isMobile && appInstalled ? <OnboardingPage /> : <App />}
+    {/* {isFirstTime && isMobile && appInstalled ? <OnboardingPage /> : <App />} */}
+    <App/>
   </React.StrictMode>,
   document.getElementById("root")
 );
