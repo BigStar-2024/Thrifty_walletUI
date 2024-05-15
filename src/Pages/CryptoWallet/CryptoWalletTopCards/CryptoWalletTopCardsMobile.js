@@ -25,6 +25,12 @@ import ComponentLoader from "../../../components/ProgressLoader/ComponentLoader"
 // Router
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import MetaMaskSDK from "@metamask/sdk";
+
+new MetaMaskSDK({
+  useDeeplink: false,
+  communicationLayerPreference: "socket",
+});
 
 
 // Lazy Image component
