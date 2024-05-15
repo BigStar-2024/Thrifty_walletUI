@@ -54,8 +54,8 @@ const CryptoWalletTopCardsMobile = () => {
         //show the first connected account in the react page
         setConnectedAccount(accounts[0]);
       } else {
-        console.log("please install metamask");
-        // alert('Please download metamask');
+        // console.log("please install metamask");
+        alert('Please download metamask');
       }
     }
 
