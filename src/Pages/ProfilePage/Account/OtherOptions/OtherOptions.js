@@ -66,7 +66,7 @@ const OtherOptions = ({ handleClickMenu }) => {
                 variant={!isMobile ? "h6" : "subtitle1"}
                 color="secondary"
               >
-                Other Options
+                Account Login Info
               </Typography>
             </Box>
             <Paper variant="outlined">

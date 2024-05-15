@@ -121,29 +121,29 @@ const Account = () => {
         onClose={handleCloseTwoFAPin}
         openAuthorizationModal={handleOpenAuthProgressModal}
       />
-      <Box>
+      {/* <Box>
         <Suspense
           fallback={<AccountCardSkeletons width={!isMobile ? "58%" : "100%"} />}
         >
           <ProfileInfo handleClickMenu={handleClickMenu} />
         </Suspense>
-      </Box>
-      <Divider />
+      </Box> */}
+      {/* <Divider />
       <Box>
         <Suspense
           fallback={<AccountCardSkeletons width={!isMobile ? "58%" : "100%"} />}
         >
           <BankInfo handleClickMenu={handleClickMenu} />
         </Suspense>
-      </Box>
-      <Divider />
+      </Box> */}
+      {/* <Divider />
       <Box>
         <Suspense
           fallback={<AccountCardSkeletons width={!isMobile ? "58%" : "100%"} />}
         >
           <KYCInfo handleClickMenu={handleClickMenu} />
         </Suspense>
-      </Box>
+      </Box> */}
       <Divider />
       <Box>
         <Suspense

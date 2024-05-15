@@ -30,6 +30,7 @@ import { appTitle, appDescription } from "./Utilities/Customs";
 // Navigation Routes
 import NavRoutes from "./NavigationRoutes";
 
+
 /**********************************
           Lazy Pages
 ***********************************/
@@ -153,6 +154,7 @@ function App() {
       localStorage.setItem("colorMode", "light");
     }
   }
+
 
   return (
     <div>

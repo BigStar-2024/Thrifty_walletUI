@@ -15,6 +15,9 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box } from "@mui/system";
 
+
+
+
 // Layout Routes
 import LayoutRoutes from "../Routes/LayoutRoutes";
 import CoinDetailsRoutes from "../Routes/CoinDetailsRoutes";
@@ -38,6 +41,9 @@ const CustomAppbar = ({ handleDrawerToggle, handleClickMenu }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const colorMode = useContext(ColorModeContext);
   const location = useLocation();
+
+
+
 
   return (
     <AppBar
@@ -151,6 +157,7 @@ const CustomAppbar = ({ handleDrawerToggle, handleClickMenu }) => {
                         {location.pathname.slice(1, 7)}
                       </Typography>
                     </Link>
+
                     <Link
                       key="2"
                       color="secondary"

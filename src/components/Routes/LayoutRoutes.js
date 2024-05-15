@@ -4,11 +4,11 @@ const LayoutRoutes = [
     path: "/crypto-wallet",
     name: "Crypto Wallet",
   },
-  {
-    id: 2,
-    path: "/fiat-wallet",
-    name: "Fiat Wallet",
-  },
+  // {
+  //   id: 2,
+  //   path: "/fiat-wallet",
+  //   name: "Fiat Wallet",
+  // },
   {
     id: 3,
     path: "/loyalty-wallet",

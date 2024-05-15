@@ -6,6 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Skeleton from "@mui/material/Skeleton";
 import { useTheme } from "@mui/material/styles";
 
+
 // Component Loader
 import ComponentLoader from "../ProgressLoader/ComponentLoader";
 import { SwipeableDrawer, useMediaQuery } from "@mui/material";
@@ -17,7 +18,12 @@ const SettingsMenu = React.lazy(() => import("./SettingsMenu"));
 
 const drawerWidth = 200;
 
+
+
+
 function Layout({ children }) {
+
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   // Menu
@@ -38,6 +44,8 @@ function Layout({ children }) {
     setMobileOpen(!mobileOpen);
   };
 
+
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -56,6 +64,7 @@ function Layout({ children }) {
             />
           }
         >
+
           <CustomAppbar
             handleClickMenu={handleClickMenu}
             handleDrawerToggle={handleDrawerToggle}
