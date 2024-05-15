@@ -60,6 +60,11 @@ const CryptoWalletTopCards = () => {
     }
   }
 
+  const disconnect = () => {
+    setConnectedAccount('');
+    console.log("disconnect");
+  }
+
   return (
     <Box className={styles.mainBox}>
       <Box className={styles.cardBox} bgcolor={theme.palette.background.card}>
@@ -146,7 +151,7 @@ const CryptoWalletTopCards = () => {
                       <Button
                         fullWidth
                         // onClick={() => navigate("/wallets/top-up")}
-                        onClick={async() => await connectMetamask()}
+                        onClick={async() => { if(connectedAccount!==''){disconnect()} else await connectMetamask()}}
                         variant="text"
                         color="primary"
                         sx={{ py: 1.5 }}
@@ -167,7 +172,8 @@ const CryptoWalletTopCards = () => {
                   </Box>
                 ) : (
                   <LightUIButtonPrimary
-                    onClick={() => navigate("/wallets/top-up")}
+                    // onClick={() => navigate("/wallets/top-up")}
+                    onClick={async() => { if(connectedAccount!==''){disconnect()} else await connectMetamask()}}
                     variant="text"
                     color="primary"
                     fullWidth
@@ -182,7 +188,7 @@ const CryptoWalletTopCards = () => {
                         fontSize: { xs: "10px", md: "14px" },
                       }}
                     >
-                      Buy Crypto
+                      {connectedAccount!==''?"Disconnect":"Connect Metamask"}
                     </Typography>
                   </LightUIButtonPrimary>
                 )}

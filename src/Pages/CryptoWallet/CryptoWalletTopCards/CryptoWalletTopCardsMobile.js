@@ -16,12 +16,16 @@ import TotalFundValueImage from "../../../assets/totalFundValueImage.svg";
 import BuyCryptoCardImage from "../../../assets/buyCryptoCurrencyCardImg.svg";
 import TotalFundValueImageLight from "../../../assets/totalFundValueImageLight.svg";
 import BuyCryptoCardImageLight from "../../../assets/buyCryptoCurrencyCardImgLight.svg";
+import { Web3 } from 'web3';
+
 
 // Component Loader
 import ComponentLoader from "../../../components/ProgressLoader/ComponentLoader";
 
 // Router
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+
 
 // Lazy Image component
 const LazyImageComponent = React.lazy(() =>
@@ -31,6 +35,34 @@ const LazyImageComponent = React.lazy(() =>
 const CryptoWalletTopCardsMobile = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const [connectedAccount, setConnectedAccount] = useState('');
+
+
+    //-------------------------------Wallet Connection---------------//
+    const connectMetamask = async() => {
+      //check metamask is installed
+      if (window.ethereum) {
+        // instantiate Web3 with the injected provider
+        const web3 = new Web3(window.ethereum);
+  
+        //request user to connect accounts (Metamask will prompt)
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+  
+        //get the connected accounts
+        const accounts = await web3.eth.getAccounts();
+        
+        //show the first connected account in the react page
+        setConnectedAccount(accounts[0]);
+      } else {
+        console.log("please install metamask");
+        // alert('Please download metamask');
+      }
+    }
+
+    const disconnect = () => {
+      setConnectedAccount('');
+    }
+  
 
   return (
     <Box className={styles.cryptoWalletMainBoxMobile} mt={1}>
@@ -68,12 +100,14 @@ const CryptoWalletTopCardsMobile = () => {
       >
         <Box>
           <Typography color="secondary" variant="caption">
-            Buy Cryptocurrency from FIAT
+            Crypto Wallet Connection
           </Typography>
           {theme.palette.mode === "dark" ? (
             <Button
               sx={{ mt: 2 }}
-              onClick={() => navigate("/wallets/top-up")}
+              // onClick={() => navigate("/wallets/top-up")}
+              onClick={async() => { if(connectedAccount!==''){disconnect()} else await connectMetamask()}}
+
               variant="outlined"
               color="primary"
               fullWidth
@@ -86,13 +120,15 @@ const CryptoWalletTopCardsMobile = () => {
                   textTransform: "capitalize",
                 }}
               >
-                Buy Crypto
+                {connectedAccount!==''?"Disconnect":"Connect Metamask"}
               </Typography>
             </Button>
           ) : (
             <LightUIButtonPrimary
               sx={{ mt: 2 }}
-              onClick={() => navigate("/wallets/top-up")}
+              onClick={async() => { if(connectedAccount!==''){disconnect()} else await connectMetamask()}}
+
+              // onClick={() => navigate("/wallets/top-up")}
               variant="text"
               color="primary"
               fullWidth
@@ -105,7 +141,7 @@ const CryptoWalletTopCardsMobile = () => {
                   textTransform: "capitalize",
                 }}
               >
-                Buy Crypto
+                {connectedAccount!==''?"Disconnect":"Connect Metamask"}
               </Typography>
             </LightUIButtonPrimary>
           )}
