@@ -28,6 +28,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { Web3 } from 'web3';
 
+import MetaMaskSDK from "@metamask/sdk";
+
+new MetaMaskSDK({
+  useDeeplink: false,
+  communicationLayerPreference: "socket",
+});
+
 // Lazy Image component
 const LazyImageComponent = React.lazy(() =>
   import("../../../components/LazyImageComponent/LazyImageComponent")
@@ -41,6 +48,7 @@ const CryptoWalletTopCards = () => {
 
 
   //-------------------------------Wallet Connection---------------//
+
   const connectMetamask = async() => {
     //check metamask is installed
     if (window.ethereum) {
