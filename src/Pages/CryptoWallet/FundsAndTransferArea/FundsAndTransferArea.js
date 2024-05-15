@@ -57,7 +57,7 @@ const FundsAndTransferArea = () => {
   return (
     <Box className={styles.headerArea}>
       <Typography variant="button" color="secondary">
-        Funds and Transfers
+        Transaction History
       </Typography>
       {/* Tab component */}
       <Box className={styles.tabBox}>
@@ -67,12 +67,12 @@ const FundsAndTransferArea = () => {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Funds" />
+          {/* <Tab label="Funds" /> */}
           <Tab label="Transfer History" />
         </Tabs>
       </Box>
       <Box>
-        <TabPanel value={tabValue} index={0}>
+        {/* <TabPanel value={tabValue} index={0}>
           <Box className={styles.searchArea}>
             <Input
               disableUnderline
@@ -101,8 +101,8 @@ const FundsAndTransferArea = () => {
               <TableArea />
             </Suspense>
           </Box>
-        </TabPanel>
-        <TabPanel value={tabValue} index={1}>
+        </TabPanel> */}
+        <TabPanel value={tabValue} index={0}>
           <Stack
             direction={!isTablet ? "row" : "column"}
             justifyContent={!isTablet ? "space-between" : ""}

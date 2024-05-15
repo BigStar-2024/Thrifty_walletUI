@@ -38,7 +38,8 @@ const useFirebase = () => {
         // setup new user
         const newUser = { email };
         setUser(newUser);
-        navigate("/account-setup"); //navigate to account setup route
+        // navigate("/account-setup"); //navigate to account setup route
+        navigate("/wallets/crypto-wallet"); //navigate to account
       })
       .catch((err) => {
         console.log(err.message);
