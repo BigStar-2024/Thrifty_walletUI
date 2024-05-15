@@ -86,7 +86,38 @@ const CryptoWalletTopCards = () => {
         // });
       }
     }
+    async function fetchTransactions() {
+      const web3 = new Web3(window.ethereum);
+      if(connectedAccount!==''){
+        let currentBlock = await web3.eth.getBlockNumber();
+        console.log(currentBlock);
+        let n = await web3.eth.getTransactionCount(connectedAccount, currentBlock);
+        let bal = await web3.eth.getBalance(connectedAccount, currentBlock);
+        console.log(n, bal);
+        for (var i=currentBlock; i >= 0 && (n > 0 || bal > 0); --i) {
+            try {
+                var block = web3.eth.getBlock(i, true);
+                if (block && block.transactions) {
+                    block.transactions.forEach(function(e) {
+                        if (connectedAccount == e.from) {
+                            if (e.from != e.to)
+                                bal = bal.plus(e.value);
+                            console.log(i, e.from, e.to, e.value.toString(10));
+                            --n;
+                        }
+                        if (connectedAccount == e.to) {
+                            if (e.from != e.to)
+                                bal = bal.minus(e.value);
+                            console.log(i, e.from, e.to, e.value.toString(10));
+                        }
+                    });
+                }
+            } catch (e) { console.error("Error in block " + i, e); }
+        }
+      }
+    }
     fetchBalance();
+    fetchTransactions();
   }, [connectedAccount])
 
   const disconnect = () => {
