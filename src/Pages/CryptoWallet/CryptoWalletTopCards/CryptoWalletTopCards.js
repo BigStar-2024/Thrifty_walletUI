@@ -25,7 +25,7 @@ import BuyCryptoCardImageLight from "../../../assets/buyCryptoCurrencyCardImgLig
 
 // Router
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Web3 } from 'web3';
 
 import MetaMaskSDK from "@metamask/sdk";
@@ -45,6 +45,7 @@ const CryptoWalletTopCards = () => {
   const navigate = useNavigate();
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const [connectedAccount, setConnectedAccount] = useState('');
+  const [balanceEth, setBalanceEth] = useState(0);
 
 
   //-------------------------------Wallet Connection---------------//
@@ -67,6 +68,26 @@ const CryptoWalletTopCards = () => {
       alert('Please download metamask');
     }
   }
+
+  useEffect(()=>{
+    async function fetchBalance() {
+      const web3 = new Web3(window.ethereum);
+      if(connectedAccount!==''){
+        const balance = await web3.eth.getBalance(connectedAccount);
+        const balanceInEther = web3.utils.fromWei(balance, 'ether');
+        setBalanceEth(Number(balanceInEther));
+        // web3.eth.getBalance(connectedAccount, (err, balance) => {
+        //   if (!err) {
+        //       // balance is returned in wei, convert it to ether
+        //       console.log(`Balance of ${connectedAccount}: ${balanceInEther} ETH`);
+        //   } else {
+        //       console.error(err);
+        //   }
+        // });
+      }
+    }
+    fetchBalance();
+  }, [connectedAccount])
 
   const disconnect = () => {
     setConnectedAccount('');
@@ -104,7 +125,7 @@ const CryptoWalletTopCards = () => {
                   className={styles.cardTitle}
                   sx={{ fontSize: { xs: "10px", sm: "24px", md: "24px" } }}
                 >
-                  $73,275
+                  {balanceEth} Eth
                 </Typography>
               </Box>
               <Box className={styles.cardImageArea}>
