@@ -42,6 +42,7 @@ const CryptoWalletTopCardsMobile = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [connectedAccount, setConnectedAccount] = useState('');
+  const [balanceEth, setBalanceEth] = useState(0);
 
 
     //-------------------------------Wallet Connection---------------//
