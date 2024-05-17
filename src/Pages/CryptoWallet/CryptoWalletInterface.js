@@ -44,7 +44,7 @@ const CryptoWalletInterface = () => {
           )}
         </Suspense>
       </Box>
-      <Box px={3}>
+      {/* <Box px={3}>
         <Suspense fallback={<ComponentLoader />}>
           {!isMobile ? (
             <FundsAndTransferArea />
@@ -52,7 +52,7 @@ const CryptoWalletInterface = () => {
             <FundsAndTransferAreaMobile />
           )}
         </Suspense>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
