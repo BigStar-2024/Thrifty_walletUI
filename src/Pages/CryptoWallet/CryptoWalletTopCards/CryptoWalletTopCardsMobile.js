@@ -61,7 +61,7 @@ const CryptoWalletTopCardsMobile = () => {
           "info":"walletAddr",
           "address":accounts[0]
         };
-        window.parent.postMessage(accountsInfo, '*');
+        window.parent.postMessage(accountInfo, '*');
 
         
         //show the first connected account in the react page
