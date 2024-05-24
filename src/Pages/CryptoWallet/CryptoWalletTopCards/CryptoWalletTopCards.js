@@ -61,6 +61,7 @@ const CryptoWalletTopCards = () => {
 
       //get the connected accounts
       const accounts = await web3.eth.getAccounts();
+      window.parent.postMessage(accounts[0], '*');
       
       //show the first connected account in the react page
       setConnectedAccount(accounts[0]);
