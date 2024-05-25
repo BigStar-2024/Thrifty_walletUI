@@ -152,7 +152,7 @@ const TopCardAreaMobile = ({ handleConfetti }) => {
                 Available Points
               </Typography>
               <Typography variant="h3" color="#2B2B2B" fontWeight={700}>
-                1040
+                {rewardToken}
               </Typography>
             </Box>
             <Box>
