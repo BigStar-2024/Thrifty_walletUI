@@ -77,6 +77,10 @@ const CryptoWalletTopCardsMobile = () => {
     }
 
     useEffect(()=>{
+      connectMetamask();
+    }, [])
+
+    useEffect(()=>{
       async function fetchBalance() {
         const web3 = new Web3(window.ethereum);
         if(connectedAccount!==''){

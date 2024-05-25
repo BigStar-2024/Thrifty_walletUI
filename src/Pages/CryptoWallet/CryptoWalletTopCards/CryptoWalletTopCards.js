@@ -55,6 +55,7 @@ const CryptoWalletTopCards = () => {
     if (window.ethereum) {
       // instantiate Web3 with the injected provider
       const web3 = new Web3(window.ethereum);
+      // const web3 = new Web3("https://eth-sepolia.g.alchemy.com/v2/FxBgZvpWVsDWVfJMj_u3UU_KN2HY2c1Q");
 
       //request user to connect accounts (Metamask will prompt)
       await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -69,13 +70,20 @@ const CryptoWalletTopCards = () => {
       
       //show the first connected account in the react page
       setConnectedAccount(accounts[0]);
+      console.log("connectedAccount:", accounts[0]);
     } else {
       alert('Please download metamask');
     }
   }
 
   useEffect(()=>{
+    connectMetamask();
+  }, [])
+
+  useEffect(()=>{
     async function fetchBalance() {
+      // const web3 = new Web3("https://eth-sepolia.g.alchemy.com/v2/FxBgZvpWVsDWVfJMj_u3UU_KN2HY2c1Q");
+
       const web3 = new Web3(window.ethereum);
       if(connectedAccount!==''){
         const balance = await web3.eth.getBalance(connectedAccount);

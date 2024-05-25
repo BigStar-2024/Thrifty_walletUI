@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import {
   Button,
@@ -29,6 +29,15 @@ import MobileNavDrawer from "../../../components/Layout/MobileNavDrawer";
 // Component Loader
 import ComponentLoader from "../../../components/ProgressLoader/ComponentLoader";
 
+import { Web3 } from 'web3';
+
+import MetaMaskSDK from "@metamask/sdk";
+
+new MetaMaskSDK({
+  useDeeplink: false,
+  communicationLayerPreference: "socket",
+});
+
 // Lazy Image component
 const LazyImageComponent = React.lazy(() =>
   import("../../../components/LazyImageComponent/LazyImageComponent")
@@ -37,9 +46,68 @@ const RewardPathAreaMobile = React.lazy(() =>
   import("../RewardPathArea/RewardPathAreaMobile")
 );
 
+
+
+const address = "0x407585c982D93cce34b60FC93A13d8A758A588be";
+const abi = [  {
+  inputs: [
+    {
+      internalType: "address",
+      name: "account",
+      type: "address",
+    },
+  ],
+  name: "balanceOf",
+  outputs: [
+    {
+      internalType: "uint256",
+      name: "",
+      type: "uint256",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+},];
+
+
+
 const TopCardAreaMobile = ({ handleConfetti }) => {
   const [progressValue, setProgressValue] = useState(0);
   const [showRewardPath, setShowRewardPath] = useState(false);
+
+  const [connectedAccount, setConnectedAccount] = useState("");
+  const [rewardToken, setRewardToken] = useState("");
+  
+  const connectMetamask = async() => {
+    //check metamask is installed
+    if (window.ethereum) {
+      // instantiate Web3 with the injected provider
+      const web3 = new Web3(window.ethereum);
+      const rewardTokenContract = new web3.eth.Contract(abi, address);
+  
+      //request user to connect accounts (Metamask will prompt)
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+  
+      //get the connected accounts
+      const accounts = await web3.eth.getAccounts();
+      const blocknum = await web3.eth.getBlockNumber();
+      console.log("blocknum:", blocknum);
+
+      const totalSupply = await rewardTokenContract.methods.balanceOf(accounts[0]).call();
+      console.log("reward:", totalSupply)
+      setRewardToken(web3.utils.fromWei(totalSupply, 'ether'));
+      
+      //show the first connected account in the react page
+      setConnectedAccount(accounts[0]);
+      console.log("account", accounts[0]);
+    } else {
+      alert('Please download metamask');
+    }
+  }
+  
+  useEffect(()=>{
+    connectMetamask();
+  }, []);
 
   const handleRewardPathNav = () => {
     setShowRewardPath(!showRewardPath);
@@ -104,7 +172,7 @@ const TopCardAreaMobile = ({ handleConfetti }) => {
           </Box>
         </Box>
       </Box>
-      <Box
+      {/* <Box
         bgcolor={theme.palette.background.card}
         className={styles.badgeAreaMobile}
       >
@@ -309,7 +377,7 @@ const TopCardAreaMobile = ({ handleConfetti }) => {
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Box> */}
       <MobileNavDrawer
         drawerOpen={showRewardPath}
         handleDrawerToggle={handleRewardPathNav}
